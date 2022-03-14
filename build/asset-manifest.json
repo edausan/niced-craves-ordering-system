@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.css": "/static/css/main.2d2f2ece.css",
+    "main.js": "/static/js/main.d535c601.js",
+    "static/js/787.ee6d848d.chunk.js": "/static/js/787.ee6d848d.chunk.js",
+    "static/media/Clubhouse.png": "/static/media/Clubhouse.ac696547eb997139b9c6.png",
+    "static/media/Milktea.png": "/static/media/Milktea.11723d78402d9d12a8f0.png",
+    "static/media/nc_logo.png": "/static/media/nc_logo.7622c202f29b29c2cccd.png",
+    "index.html": "/index.html",
+    "main.2d2f2ece.css.map": "/static/css/main.2d2f2ece.css.map",
+    "main.d535c601.js.map": "/static/js/main.d535c601.js.map",
+    "787.ee6d848d.chunk.js.map": "/static/js/787.ee6d848d.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.2d2f2ece.css",
+    "static/js/main.d535c601.js"
+  ]
+}
