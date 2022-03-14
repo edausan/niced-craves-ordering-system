@@ -1,12 +1,12 @@
 import { ShoppingCart } from '@mui/icons-material';
-import { Grid } from '@mui/material';
+import { Grid, Badge } from '@mui/material';
 import React, { useContext } from 'react';
 import Logo from '../../nc_logo.png';
 import Swipeable from '../Swipeable';
 import { AppCtx } from './../../App';
 
 export const Header = () => {
-  const { setIsCartOpen } = useContext(AppCtx);
+  const { setIsCartOpen, cart } = useContext(AppCtx);
   return (
     <section className='header'>
       <Swipeable />
@@ -26,10 +26,12 @@ export const Header = () => {
             justifyContent: 'right',
           }}
         >
-          <ShoppingCart
-            sx={{ color: '#fff' }}
-            onClick={() => setIsCartOpen(true)}
-          />
+          <Badge badgeContent={cart.length} color='primary'>
+            <ShoppingCart
+              sx={{ color: '#fff' }}
+              onClick={() => setIsCartOpen(true)}
+            />
+          </Badge>
         </Grid>
       </Grid>
     </section>

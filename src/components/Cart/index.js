@@ -6,7 +6,7 @@ const CartModal = () => {
   const { cart, isCartOpen, setIsCartOpen } = useContext(AppCtx);
   return (
     <Modal open={isCartOpen} onClose={() => setIsCartOpen(!isCartOpen)}>
-      <div className='product-modal'>
+      <div className='product-modal cart'>
         {cart.map((item) => {
           return <div key={item.id}>{item.name}</div>;
         })}

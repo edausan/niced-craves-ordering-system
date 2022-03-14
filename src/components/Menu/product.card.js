@@ -39,7 +39,7 @@ const ProductCard = ({ product }) => {
           <div className='product-details'>
             <h6
               className='product-name card-name'
-              style={{ marginBottom: '5px' }}
+              style={{ marginBottom: '5px', minHeight: 24 }}
             >
               {product.name}
             </h6>

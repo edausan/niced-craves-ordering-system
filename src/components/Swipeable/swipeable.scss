@@ -68,7 +68,6 @@
 
 .product-modal {
   width: 90%;
-  height: 90%;
   background-color: #fff;
   position: absolute;
   top: 50%;
@@ -76,7 +75,12 @@
   transform: translate(-50%, -50%);
   border-radius: 30px;
   overflow: hidden;
-  //   padding: 20px;
+
+  &.cart {
+    height: 80%;
+    overflow-y: auto;
+    padding: 20px;
+  }
 }
 
 .product-img-wrapper {
