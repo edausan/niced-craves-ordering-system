@@ -16,8 +16,25 @@ const ProductCard = ({ product }) => {
     >
       <Grid container>
         <Grid item xs={12}>
-          <div style={{ width: '100%', height: '100px', overflow: 'hidden' }}>
-            <img style={{ width: '100%' }} src={product.img} alt='' />
+          <div
+            style={{
+              width: '100%',
+              height: '100px',
+              overflow: 'hidden',
+              position: 'relative',
+            }}
+          >
+            <img
+              style={{
+                width: '110%',
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+              }}
+              src={product.img}
+              alt=''
+            />
           </div>
           <div className='product-details'>
             <h6
@@ -26,7 +43,7 @@ const ProductCard = ({ product }) => {
             >
               {product.name}
             </h6>
-            <h4 className='product-price'>₱{product.price}.00</h4>
+            <h4 className='product-price'>₱{product.prices[0]}.00</h4>
           </div>
         </Grid>
       </Grid>

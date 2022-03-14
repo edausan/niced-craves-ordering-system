@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Grid, Modal, Button } from '@mui/material';
-import { menu } from './../Swipeable/index';
-import ProductCard from './product_card';
-import { AppCtx } from './../../App';
+import { Grid } from '@mui/material';
+import { menu } from '../../data';
+import ProductCard from './product.card';
+import { AppCtx } from '../../App';
+import MenuModal from './menu.modal';
 
 const BestSeller = () => {
   const [isOpen, setIsOpen] = useState({ product: null, status: false });
@@ -14,28 +15,7 @@ const BestSeller = () => {
 
   return (
     <div>
-      <Modal open={isOpen.status} onClose={() => setIsOpen(!isOpen.status)}>
-        <section className='product-modal'>
-          <Grid container>
-            <Grid item xs={12}>
-              <div className='product-img-wrapper modal'>
-                <img
-                  style={{ width: '100%' }}
-                  src={isOpen.product?.img}
-                  alt=''
-                />
-              </div>
-            </Grid>
-          </Grid>
-
-          {isOpen.product?.name}
-          <Button onClick={() => setIsOpen(!isOpen.status)}>Close</Button>
-          <Button onClick={() => setCart((cart) => [...cart, isOpen.product])}>
-            Add to cart
-          </Button>
-        </section>
-      </Modal>
-
+      <MenuModal isOpen={isOpen} setCart={setCart} setIsOpen={setIsOpen} />
       <Grid container sx={{ alignItems: 'center', mt: 2 }}>
         <Grid item xs={12} sx={{ padding: '0 1rem' }}>
           <Grid container>
@@ -48,10 +28,9 @@ const BestSeller = () => {
           </Grid>
         </Grid>
 
-        <Grid xs={12}>
+        <Grid item xs={12}>
           <Grid
             container
-            // spacing={2}
             sx={{
               alignItems: 'stretch',
               flexWrap: 'unset',
