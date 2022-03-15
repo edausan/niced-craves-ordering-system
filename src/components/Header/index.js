@@ -23,7 +23,7 @@ export const Header = () => {
           sx={{
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'right',
+            justifyContent: 'center',
           }}
         >
           <Badge badgeContent={cart.length} color='primary'>

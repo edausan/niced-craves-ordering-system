@@ -93,3 +93,17 @@
     border-bottom-right-radius: 30px;
   }
 }
+
+.item-img-wrapper {
+  position: relative;
+  height: 60px;
+  overflow: hidden;
+
+  & > img.item-img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 150%;
+  }
+}
