@@ -15,31 +15,37 @@ function App() {
 	const [isCartUpdated, setIsCartUpdated] = useState(false)
 
 	useEffect(() => {
-		console.log({ cart })
-
-		if (cart.length > 0 && isCartUpdated) {
-			const latestItem = cart[cart.length - 1]
-			const isExist = cart.findIndex(item => {
-				console.log({ latestItem, item })
-				return (
-					item.id === latestItem.id &&
-					item.flavor === latestItem.flavor &&
-					item.price === latestItem.price &&
-					item.name === latestItem.name
-				)
-			})
-
-			const filtered = cart.filter(
-				item => item.id !== latestItem.id || item.price !== latestItem.price || item.flavor !== latestItem.flavor
-			)
-			const duplicates = cart.filter(
-				item => item.id === latestItem.id && item.flavor === latestItem.flavor && item.price === latestItem.price
-			)
-			console.log({ filtered, duplicates })
-			setCart([...filtered, { ...duplicates[0], quantity: duplicates.length }])
-			setIsCartUpdated(false)
-		}
+		cart.length > 0 && isCartUpdated && handleUpdateCart()
 	}, [cart])
+
+	useEffect(() => {
+		isCartOpen && cart.length > 0 && handleUpdateCart()
+	}, [isCartOpen])
+
+	const handleUpdateCart = () => {
+		const latestItem = cart[cart.length - 1]
+		const isExist = cart.findIndex(item => {
+			console.log({ latestItem, item })
+			return (
+				item.id === latestItem.id &&
+				item.flavor === latestItem.flavor &&
+				item.price === latestItem.price &&
+				item.name === latestItem.name
+			)
+		})
+
+		const filtered = cart.filter(item => item.id !== latestItem.id)
+		const duplicates = cart.filter(item => item.id === latestItem.id)
+
+		let total_quantity = 0
+		duplicates.forEach(item => {
+			total_quantity = total_quantity + item.quantity
+		})
+
+		console.log({ filtered, duplicates })
+		setCart([...filtered, { ...duplicates[0], quantity: total_quantity }])
+		setIsCartUpdated(false)
+	}
 
 	useEffect(() => {
 		setIsCartUpdated(true)
@@ -47,13 +53,13 @@ function App() {
 			setIsCartUpdated(false)
 			setTimeout(() => {
 				setShowNotif(false)
-			}, 300)
+			}, 1000)
 		}
 	}, [showNotif])
 
 	return (
 		<div className="App">
-			<AppCtx.Provider value={{ cart, setCart, isCartOpen, setIsCartOpen, setShowNotif }}>
+			<AppCtx.Provider value={{ cart, setCart, isCartOpen, setIsCartOpen, setShowNotif, setIsCartUpdated }}>
 				<Notification item={cart[cart.length - 1]} showNotif={showNotif} />
 				<CartModal />
 

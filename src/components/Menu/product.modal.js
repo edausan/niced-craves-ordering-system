@@ -67,22 +67,37 @@ const ProductModal = ({ isOpen, setIsOpen, setCart }) => {
 	}, [prices])
 
 	const handleChange = (event, column) => {
+		const val = event.target.value
 		setItemDetails({
 			...itemDetails,
+			id: `${itemDetails.name.split(" ").join("_")}~${column === "flavor" ? event.target.value : itemDetails.flavor}~${
+				column === "add_on" ? val : itemDetails.add_on
+			}~${alignment}`,
 			[column]: column === "quantity" ? parseInt(event.target.value) : event.target.value
 		})
 	}
 
 	const handleAlignment = (event, newAlignment) => {
 		if (newAlignment !== null) {
-			setItemDetails({ ...itemDetails, price: newAlignment })
+			setItemDetails({
+				...itemDetails,
+				price: newAlignment,
+				id: `${itemDetails.name.split(" ").join("_")}~${itemDetails.flavor}~${itemDetails.add_on}~${alignment}`
+			})
 			setAlignment(newAlignment)
 		}
 	}
 
 	const handleAddToCart = () => {
+		console.log({ itemDetails })
 		setShowNotif(true)
-		setCart(cart => [...cart, itemDetails])
+		setCart(cart => [
+			...cart,
+			{
+				...itemDetails,
+				id: `${itemDetails.name.split(" ").join("_")}~${itemDetails.flavor}~${itemDetails.add_on}~${alignment}`
+			}
+		])
 	}
 
 	return (
