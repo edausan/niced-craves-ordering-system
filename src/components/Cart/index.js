@@ -85,7 +85,7 @@ const CartModal = () => {
 							justifyContent="center"
 							fullWidth
 							flexDirection="column"
-							sx={{ height: cart.length > 0 ? "calc(100% - 70px)" : "100%" }}
+							sx={{ minHeight: cart.length > 0 ? "calc(100% - 50px)" : "100%" }}
 						>
 							<ShoppingCartOutlined sx={{ fontSize: "50px", mb: 2 }} color="warning" />
 							<strong style={{ color: "#ed6c02" }}>Your cart is empty.</strong>
@@ -231,7 +231,6 @@ const CartModal = () => {
 													</div>
 												</Grid>
 											</Grid>
-											{/* <div>Subtotal: {item.quantity * item.price}</div> */}
 										</Grid>
 									</Grid>
 								</Box>
@@ -239,6 +238,16 @@ const CartModal = () => {
 						)
 					})}
 				</section>
+				<Grid container fullWidth>
+					<Grid item xs={8}>
+						Total:
+					</Grid>
+					<Grid item xs={4}>
+						<Button fullWidth variant="contained" color="warning" sx={{ mt: 1 }}>
+							Checkout
+						</Button>
+					</Grid>
+				</Grid>
 			</div>
 		</Modal>
 	)
