@@ -1,109 +1,72 @@
 .swipeable-wrapper {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 110%;
-  z-index: 1000;
+	position: absolute;
+	top: 0;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 110%;
+	z-index: 1000;
 }
 
 .carousel-img-wrapper {
-  width: 100%;
-  height: 400px;
-  overflow: hidden;
-  position: relative;
-  & > img {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 110%;
-  }
+	width: 100%;
+	height: 400px;
+	overflow: hidden;
+	position: relative;
+	& > img {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		width: 110%;
+	}
 
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 50%;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
-    z-index: 1000;
-  }
+	&::after {
+		content: "";
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		height: 50%;
+		background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
+		z-index: 1000;
+	}
 }
 
 .carousel-product-description {
-  position: absolute;
-  bottom: 20px;
-  left: 50px;
-  color: #fff;
-  z-index: 1001;
+	position: absolute;
+	bottom: 20px;
+	left: 50px;
+	color: #fff;
+	z-index: 1001;
+	width: calc(100% - 100px);
 
-  & > .product-name,
-  .product-price {
-    margin: 0;
-  }
+	& > .product-name,
+	.product-price {
+		margin: 0;
+		word-break: break-all;
+		width: 100%;
+	}
 
-  & > .product-name {
-    font-size: 1.8rem;
-  }
+	& > .product-name {
+		font-size: 1.8rem;
+	}
 
-  & > .product-price {
-    color: goldenrod;
-  }
+	& > .product-price {
+		color: goldenrod;
+	}
 }
 
 .product-name,
 .product-price {
-  margin: 0;
+	margin: 0;
+	word-break: break-all;
+	width: 100%;
 }
 
 .product-details {
-  padding: 14px;
+	padding: 14px;
 
-  & > .product-name.card-name {
-    color: #999;
-  }
-}
-
-.product-modal {
-  width: 90%;
-  background-color: #fff;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border-radius: 30px;
-  overflow: hidden;
-
-  &.cart {
-    height: 80%;
-    overflow-y: auto;
-    padding: 20px;
-  }
-}
-
-.product-img-wrapper {
-  width: 100%;
-  height: 300px;
-  overflow: hidden;
-
-  &.modal {
-    border-bottom-left-radius: 30px;
-    border-bottom-right-radius: 30px;
-  }
-}
-
-.item-img-wrapper {
-  position: relative;
-  height: 60px;
-  overflow: hidden;
-
-  & > img.item-img {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 150%;
-  }
+	& > .product-name.card-name {
+		color: #999;
+	}
 }
