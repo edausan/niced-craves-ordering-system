@@ -10,8 +10,7 @@ export const Header = () => {
 	const [scroll, setScroll] = useState(0)
 
 	useEffect(() => {
-		window.addEventListener("scroll", e => {
-			console.log(window.scrollY)
+		window.addEventListener("scroll", () => {
 			setScroll(window.scrollY)
 		})
 	}, [])

@@ -19,6 +19,23 @@ const CartModal = () => {
 	const { cart, isCartOpen, setIsCartOpen, setCart, setIsCartUpdated } = useContext(AppCtx)
 	const [quantity, setQuantity] = useState({ item: "", value: 1 })
 	const [deleted, setDeleted] = useState({ item: null, status: false })
+	const [total, setTotal] = useState(0)
+
+	useEffect(() => {
+		if (cart.length > 0) {
+			let total = 0
+			cart.forEach(item => {
+				console.log({ item })
+				const subtotal =
+					item.quantity * item.selected_price +
+					(item.add_on ? 10 : 0) * item.quantity -
+					(item.rice === "no-rice" ? 5 : 0)
+				total = total + subtotal
+			})
+
+			setTotal(total)
+		}
+	}, [cart])
 
 	useEffect(() => {
 		console.log({ quantity })
@@ -245,12 +262,12 @@ const CartModal = () => {
 				</section>
 				{cart.length > 0 && (
 					<Grid container fullWidth>
-						<Grid item xs={8}>
+						{/* <Grid item xs={8}>
 							Total:
-						</Grid>
-						<Grid item xs={4}>
+						</Grid> */}
+						<Grid item xs={12}>
 							<Button fullWidth variant="contained" color="warning" sx={{ mt: 1 }}>
-								Checkout
+								₱{total} | Checkout
 							</Button>
 						</Grid>
 					</Grid>
