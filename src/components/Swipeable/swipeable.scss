@@ -17,7 +17,7 @@
 		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%);
-		width: 110%;
+		width: 180%;
 	}
 
 	&::after {
@@ -26,7 +26,7 @@
 		bottom: 0;
 		left: 0;
 		right: 0;
-		height: 50%;
+		height: 70%;
 		background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
 		z-index: 1000;
 	}
@@ -40,19 +40,19 @@
 	z-index: 1001;
 	width: calc(100% - 100px);
 
-	& > .product-name,
+	& .product-name,
 	.product-price {
 		margin: 0;
-		word-break: break-all;
+		word-break: keep-all;
 		width: 100%;
 	}
 
-	& > .product-name {
+	& .product-name {
 		font-size: 1.8rem;
 	}
 
-	& > .product-price {
-		color: goldenrod;
+	& .product-price {
+		color: orange;
 	}
 }
 

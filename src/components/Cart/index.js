@@ -243,16 +243,18 @@ const CartModal = () => {
 						)
 					})}
 				</section>
-				<Grid container fullWidth>
-					<Grid item xs={8}>
-						Total:
+				{cart.length > 0 && (
+					<Grid container fullWidth>
+						<Grid item xs={8}>
+							Total:
+						</Grid>
+						<Grid item xs={4}>
+							<Button fullWidth variant="contained" color="warning" sx={{ mt: 1 }}>
+								Checkout
+							</Button>
+						</Grid>
 					</Grid>
-					<Grid item xs={4}>
-						<Button fullWidth variant="contained" color="warning" sx={{ mt: 1 }}>
-							Checkout
-						</Button>
-					</Grid>
-				</Grid>
+				)}
 			</div>
 		</Modal>
 	)

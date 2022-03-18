@@ -1,6 +1,7 @@
 /* HEADER STYLES */
 .logo-wrapper {
 	width: 100%;
+	padding: 0.5rem;
 	& > img {
 		width: 100%;
 		position: relative;
@@ -18,7 +19,9 @@
 	z-index: 1;
 
 	& > .top-bar {
-		position: relative;
+		position: fixed;
+		top: 0;
+		left: 0;
 		z-index: 1002;
 	}
 

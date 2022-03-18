@@ -6,14 +6,14 @@ const Notification = ({ item, showNotif }) => {
 	return (
 		<section className={`notification ${showNotif ? "show" : ""}`}>
 			<Grid container alignItems="center">
-				<Grid item xs={2} sx={{ borderRight: "1px solid orangered" }}>
+				<Grid item xs={2}>
 					<AddShoppingCart color="warning" />
 				</Grid>
 				<Grid item xs={10}>
-					<span style={{ color: "orangered", marginLeft: 10 }}>
+					<small style={{ color: "orangered", marginLeft: 10 }}>
 						{item?.name}
 						{item?.flavor ? ` (${item?.flavor})` : ""}
-					</span>{" "}
+					</small>{" "}
 					is added to cart.
 				</Grid>
 			</Grid>

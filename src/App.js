@@ -28,6 +28,7 @@ function App() {
 
 	useEffect(() => {
 		console.log({ cart })
+		cart.length > 0 && setShowNotif(true)
 		cart.length > 0 && isCartUpdated && handleUpdateCart()
 	}, [cart])
 
@@ -62,7 +63,17 @@ function App() {
 
 	return (
 		<div className="App">
-			<AppCtx.Provider value={{ cart, setCart, isCartOpen, setIsCartOpen, setShowNotif, setIsCartUpdated }}>
+			<AppCtx.Provider
+				value={{
+					cart,
+					setCart,
+					isCartOpen,
+					setIsCartOpen,
+					setShowNotif,
+					setIsCartUpdated,
+					products: [...best_rice, ...best_pika, ...best_coffee, ...best_milktea]
+				}}
+			>
 				<Notification item={cart[cart.length - 1]} showNotif={showNotif} />
 				<CartModal />
 
@@ -74,6 +85,10 @@ function App() {
 						title="All Products"
 						products={[...pika, ...best_pika, ...best_rice, ...rice, ...coffee, ...best_coffee, ...milktea]}
 					/>
+					<Products title="Rice Meals" products={[...best_rice, ...rice]} />
+					<Products title="Pika - Pika" products={[...pika, ...best_pika]} />
+					<Products title="Coffee Blends" products={[...best_coffee, ...coffee]} />
+					<Products title="Milktea" products={[...best_milktea, ...milktea]} />
 				</section>
 			</AppCtx.Provider>
 		</div>

@@ -1,7 +1,9 @@
-import React from "react"
+import React, { useContext } from "react"
 import { Button, Grid, Paper } from "@mui/material"
+import { AppCtx } from "../../App"
 
 const ProductCard = ({ product, setIsOpen }) => {
+	const { setCart, cart } = useContext(AppCtx)
 	return (
 		<Paper
 			id="product-card"
@@ -47,7 +49,24 @@ const ProductCard = ({ product, setIsOpen }) => {
 						</div>
 					</div>
 					<div style={{ padding: "0 14px 14px" }}>
-						<Button variant="contained" size="small" color="warning" fullWidth>
+						<Button
+							variant="contained"
+							size="small"
+							color="warning"
+							fullWidth
+							disableElevation
+							onClick={() =>
+								setCart([
+									...cart,
+									{
+										...product,
+										selected_price: product.price[0],
+										quantity: 1,
+										flavor: product.flavors ? product.flavors[0]?.name : null
+									}
+								])
+							}
+						>
 							Add to cart
 						</Button>
 					</div>

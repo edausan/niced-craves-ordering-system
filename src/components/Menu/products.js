@@ -23,7 +23,7 @@ const Products = ({ title, products = [] }) => {
 							<h3 style={{ margin: 0 }}>{title}</h3>
 						</Grid>
 						<Grid item xs={2}>
-							<small>Show all</small>
+							{products.length > 3 && <small>Show all</small>}
 						</Grid>
 					</Grid>
 				</Grid>
