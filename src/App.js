@@ -20,6 +20,7 @@ function App() {
 	const { best_sellers: best_rice, products: rice } = GetData({ colRef: "rice_meals", db })
 	const { best_sellers: best_pika, products: pika } = GetData({ colRef: "pika-pika", db })
 	const { best_sellers: best_coffee, products: coffee } = GetData({ colRef: "coffee_blends", db })
+	const { best_sellers: best_milktea, products: milktea } = GetData({ colRef: "milktea", db })
 
 	// useEffect(() => {
 	// 	console.log({ best_sellers })
@@ -68,10 +69,10 @@ function App() {
 				<Header />
 				{/* <Menu /> */}
 				<section>
-					<Products title="Best Sellers" products={[...best_rice, ...best_pika, ...best_coffee]} />
+					<Products title="Best Sellers" products={[...best_rice, ...best_pika, ...best_coffee, ...best_milktea]} />
 					<Products
 						title="All Products"
-						products={[...best_rice, ...rice, ...pika, ...best_pika, ...coffee, ...best_coffee]}
+						products={[...pika, ...best_pika, ...best_rice, ...rice, ...coffee, ...best_coffee, ...milktea]}
 					/>
 				</section>
 			</AppCtx.Provider>

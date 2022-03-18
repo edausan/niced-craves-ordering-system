@@ -120,7 +120,15 @@ const ProductModal = ({ isOpen, setIsOpen, setCart }) => {
 				sauce,
 				id: handleId({ ...itemDetails, sauce })
 			})
-			setSelectedSauce(sauce)
+		}
+	}
+	const handleRice = (e, rice) => {
+		if (sauce !== null) {
+			setItemDetails({
+				...itemDetails,
+				rice,
+				id: handleId({ ...itemDetails, sauce })
+			})
 		}
 	}
 
@@ -148,10 +156,10 @@ const ProductModal = ({ isOpen, setIsOpen, setCart }) => {
 					<Grid container>
 						<Grid item xs={12}>
 							<div className="product-img-wrapper modal">
-								<img style={{ width: "100%" }} src={thumb} alt="" />
+								<img src={thumb} alt="" />
 							</div>
 						</Grid>
-						<Grid item xs={12} sx={{ p: 2 }}>
+						<Grid item xs={12} sx={{ p: 2, pt: 1 }}>
 							<Typography variant="h5" sx={{ mb: 2 }}>
 								{is_best_seller && <span className="best-seller row">Best Seller</span>}
 								<strong>{name}</strong>
@@ -207,10 +215,30 @@ const ProductModal = ({ isOpen, setIsOpen, setCart }) => {
 										{itemDetails.sauces?.map((s, idx) => {
 											return (
 												<ToggleButton key={idx} value={s} aria-label="center">
-													<Typography variant="h6">{s}</Typography>
+													<Typography variant="subtitle2">{s}</Typography>
 												</ToggleButton>
 											)
 										})}
+									</ToggleButtonGroup>
+								</Box>
+							)}
+							{itemDetails.with_rice && (
+								<Box fullWidth>
+									<Typography variant="subtitle2">Rice</Typography>
+									<ToggleButtonGroup
+										fullWidth
+										value={itemDetails.rice ? itemDetails.rice : "w-rice"}
+										exclusive
+										onChange={handleRice}
+										size="small"
+										color="primary"
+									>
+										<ToggleButton value="w-rice" aria-label="center">
+											<Typography variant="subtitle2">With rice</Typography>
+										</ToggleButton>
+										<ToggleButton value="no-rice" aria-label="center">
+											<Typography variant="subtitle2">W/o rice</Typography>
+										</ToggleButton>
 									</ToggleButtonGroup>
 								</Box>
 							)}

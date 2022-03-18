@@ -228,7 +228,10 @@ const CartModal = () => {
 													<small style={{ color: "#ccc", fontSize: "10px" }}>Subtotal</small>
 													<div style={{ color: "orangered", marginTop: 3 }}>
 														<strong>
-															₱{item.quantity * item.selected_price + (item.add_on ? 10 * item.quantity : 0)}
+															₱
+															{item.quantity * item.selected_price +
+																(item.add_on ? 10 * item.quantity : 0) -
+																(item.rice === "no-rice" ? 5 : 0)}
 														</strong>
 													</div>
 												</Grid>
