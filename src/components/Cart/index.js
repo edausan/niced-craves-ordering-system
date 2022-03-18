@@ -92,7 +92,7 @@ const CartModal = () => {
 						</Grid>
 					)}
 					{cart.map(item => {
-						console.log({ item })
+						// console.log({ item })
 						return (
 							<section
 								key={item.id}
@@ -103,7 +103,7 @@ const CartModal = () => {
 									<Grid container>
 										<Grid item xs={3}>
 											<div className="item-img-wrapper">
-												<img src={item.img} alt="" className="item-img" />
+												<img src={item.thumb} alt="" className="item-img" />
 											</div>
 										</Grid>
 										<Grid item xs={9} sx={{ p: 1 }}>
@@ -173,7 +173,7 @@ const CartModal = () => {
 												<Grid item xs={3}>
 													<small style={{ color: "#ccc", fontSize: "10px" }}>Price</small>
 													<div style={{ color: "orangered", marginTop: 3 }}>
-														<strong>₱{item.price}</strong>
+														<strong>₱{item.selected_price}</strong>
 													</div>
 												</Grid>
 
@@ -227,7 +227,9 @@ const CartModal = () => {
 												<Grid item xs={3}>
 													<small style={{ color: "#ccc", fontSize: "10px" }}>Subtotal</small>
 													<div style={{ color: "orangered", marginTop: 3 }}>
-														<strong>₱{item.quantity * item.price + (item.add_on ? 10 * item.quantity : 0)}</strong>
+														<strong>
+															₱{item.quantity * item.selected_price + (item.add_on ? 10 * item.quantity : 0)}
+														</strong>
 													</div>
 												</Grid>
 											</Grid>

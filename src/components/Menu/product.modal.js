@@ -14,77 +14,113 @@ import {
 	ToggleButtonGroup,
 	ToggleButton
 } from "@mui/material"
-import { ShoppingCart, CurrencyRuble } from "@mui/icons-material"
+import { ShoppingCart, CurrencyRuble, Star } from "@mui/icons-material"
 import Notification from "./notification"
 import { AppCtx } from "../../App"
 
 const ProductModal = ({ isOpen, setIsOpen, setCart }) => {
 	const { setShowNotif } = useContext(AppCtx)
-	const { name, img, prices, id, sizes, flavors, add_ons } = isOpen.product
-		? isOpen.product
-		: {
-				id: null,
-				name: null,
-				img: null,
-				sizes: [],
-				flavors: [],
-				add_ons: [],
-				prices: []
-		  }
 
-	const [itemDetails, setItemDetails] = useState({
-		id: null,
+	const [itemDetails, setItemDetails] = useState(
+		isOpen.product
+			? isOpen.product
+			: {
+					id: null,
+					name: null,
+					thumb: null,
+					sizes: [],
+					flavors: [],
+					add_ons: [],
+					price: [],
+					is_available: true,
+					sauce: null,
+					flavor: null
+			  }
+	)
+	const {
 		name,
-		img,
-		price: prices[0],
+		thumb,
+		price,
+		id,
+		sizes,
 		flavors,
 		add_ons,
-		add_on: null,
-		flavor: flavors ? flavors[0]?.name : null,
-		quantity: 1
-	})
+		is_available,
+		is_best_seller,
+		sauces,
+		sauce,
+		selected_price
+	} = itemDetails
+	const [alignment, setAlignment] = useState(sizes?.length > 0 ? sizes[0].price : price[0])
+	const [selectedSauce, setSelectedSauce] = useState(sauce)
 
 	useEffect(() => {
-		id &&
-			setItemDetails({
-				id,
-				name,
-				img,
-				price: prices[0],
-				flavors,
-				add_ons,
-				add_on: null,
+		console.log({ UPDATE: itemDetails })
+	}, [itemDetails])
+
+	useEffect(() => {
+		console.log(isOpen.product)
+		if (isOpen.product?.id) {
+			const selected_price =
+				isOpen.product?.sizes?.length > 0 ? isOpen.product?.sizes[0].price : isOpen.product?.price[0]
+			const item_details = {
+				...isOpen.product,
+				selected_price,
+				sauce: isOpen.product?.sauces?.length > 0 ? isOpen.product?.sauces[0] : null,
 				flavor: flavors ? flavors[0]?.name : null,
-				quantity: 1
-			})
+				quantity: 1,
+				id: handleId({ ...isOpen.product, selected_price })
+			}
+			console.log({ USE_EFFECT: item_details })
+			setItemDetails(item_details)
+		}
 	}, [isOpen.product])
 
-	const [alignment, setAlignment] = useState(prices[0])
-
 	useEffect(() => {
-		console.log(prices)
-		setAlignment(prices[0])
-	}, [prices])
+		console.log(price)
+		setAlignment(price[0])
+	}, [price])
+
+	const handleId = itemDetails => {
+		console.log({ itemDetails })
+		const _id = `${itemDetails?.name?.split(" ").join("_")}_F:${itemDetails.flavor || null}_A:${
+			itemDetails.add_on ? itemDetails.add_on : null
+		}_P:${itemDetails.selected_price}_S:${itemDetails.sauce}`
+		return _id
+	}
 
 	const handleChange = (event, column) => {
 		const val = event.target.value
 		setItemDetails({
 			...itemDetails,
-			id: `${itemDetails.name.split(" ").join("_")}~${column === "flavor" ? event.target.value : itemDetails.flavor}~${
-				column === "add_on" ? val : itemDetails.add_on
-			}~${alignment}`,
+			id: `${itemDetails.name.split(" ").join("_")}_F:${
+				column === "flavor" ? event.target.value : itemDetails.flavor
+			}_A:${column === "add_on" ? val : itemDetails.add_on ? itemDetails.add_on : null}_P:${
+				itemDetails.selected_price
+			}_S:${sauce}`,
 			[column]: column === "quantity" ? parseInt(event.target.value) : event.target.value
 		})
 	}
 
-	const handleAlignment = (event, newAlignment) => {
-		if (newAlignment !== null) {
+	const handleAlignment = (e, price) => {
+		if (price !== null) {
 			setItemDetails({
 				...itemDetails,
-				price: newAlignment,
-				id: `${itemDetails.name.split(" ").join("_")}~${itemDetails.flavor}~${itemDetails.add_on}~${alignment}`
+				selected_price: price,
+				id: handleId({ ...itemDetails, selected_price: price })
 			})
-			setAlignment(newAlignment)
+			setAlignment(price)
+		}
+	}
+
+	const handleSauce = (e, sauce) => {
+		if (sauce !== null) {
+			setItemDetails({
+				...itemDetails,
+				sauce,
+				id: handleId({ ...itemDetails, sauce })
+			})
+			setSelectedSauce(sauce)
 		}
 	}
 
@@ -95,7 +131,7 @@ const ProductModal = ({ isOpen, setIsOpen, setCart }) => {
 			...cart,
 			{
 				...itemDetails,
-				id: `${itemDetails.name.split(" ").join("_")}~${itemDetails.flavor}~${itemDetails.add_on}~${alignment}`
+				id: handleId(itemDetails)
 			}
 		])
 	}
@@ -112,11 +148,12 @@ const ProductModal = ({ isOpen, setIsOpen, setCart }) => {
 					<Grid container>
 						<Grid item xs={12}>
 							<div className="product-img-wrapper modal">
-								<img style={{ width: "100%" }} src={img} alt="" />
+								<img style={{ width: "100%" }} src={thumb} alt="" />
 							</div>
 						</Grid>
 						<Grid item xs={12} sx={{ p: 2 }}>
 							<Typography variant="h5" sx={{ mb: 2 }}>
+								{is_best_seller && <span className="best-seller row">Best Seller</span>}
 								<strong>{name}</strong>
 							</Typography>
 
@@ -129,18 +166,54 @@ const ProductModal = ({ isOpen, setIsOpen, setCart }) => {
 									onChange={handleAlignment}
 									size="small"
 									color="primary"
+									disabled={(sizes?.length > 0 ? [...sizes] : [...price]).length <= 0}
 								>
 									{/* ₱ */}
-									{prices.map((price, idx) => {
+									{(sizes?.length > 0 ? [...sizes] : [...price]).map((price, idx) => {
 										return (
-											<ToggleButton key={idx} value={price} aria-label="center">
-												<CurrencyRuble />
-												<Typography variant="h6">{price}.00</Typography>
+											<ToggleButton
+												key={idx}
+												value={sizes?.length > 0 ? price.price : price}
+												aria-label="center"
+												sx={{ display: "block" }}
+											>
+												{sizes?.length > 0 && (
+													<div>
+														<small>{price.name}</small>
+													</div>
+												)}
+												<div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+													<CurrencyRuble />
+													<Typography variant="h6">{sizes?.length > 0 ? price.price : price}.00</Typography>
+												</div>
 											</ToggleButton>
 										)
 									})}
 								</ToggleButtonGroup>
 							</Box>
+
+							{itemDetails.sauces && (
+								<Box fullWidth>
+									<Typography variant="subtitle2">Sauces</Typography>
+									<ToggleButtonGroup
+										fullWidth
+										value={sauce}
+										exclusive
+										onChange={handleSauce}
+										size="small"
+										color="primary"
+									>
+										{/* ₱ */}
+										{itemDetails.sauces?.map((s, idx) => {
+											return (
+												<ToggleButton key={idx} value={s} aria-label="center">
+													<Typography variant="h6">{s}</Typography>
+												</ToggleButton>
+											)
+										})}
+									</ToggleButtonGroup>
+								</Box>
+							)}
 
 							<Box sx={{ mt: 2 }}>
 								{flavors && (
@@ -175,6 +248,7 @@ const ProductModal = ({ isOpen, setIsOpen, setCart }) => {
 									variant="outlined"
 									onChange={e => handleChange(e, "quantity")}
 									value={itemDetails.quantity}
+									defaultValue={1}
 								/>
 							</Box>
 						</Grid>
@@ -186,8 +260,9 @@ const ProductModal = ({ isOpen, setIsOpen, setCart }) => {
 								color="warning"
 								fullWidth
 								startIcon={<ShoppingCart />}
+								disabled={!is_available}
 							>
-								Add to cart
+								{is_available ? "Add to cart" : "Not Available"}
 							</Button>
 						</Grid>
 					</Grid>

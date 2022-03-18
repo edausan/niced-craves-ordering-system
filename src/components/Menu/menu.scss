@@ -12,10 +12,36 @@
 	opacity: 0;
 	transition: 200ms ease;
 	width: 60%;
-	text-align: center;
+	text-align: left;
 
 	&.show {
 		opacity: 1;
 		transform: translate(-50%, 0);
+	}
+}
+
+.best-seller {
+	padding: 0.1rem 0.2rem;
+	background-color: red;
+	color: white;
+	font-size: 8px;
+	float: right;
+	text-align: center;
+
+	&.row {
+		padding: 0.2rem 0.3rem;
+		font-size: 12px;
+		display: block;
+		float: none;
+		width: 70px;
+		margin-left: auto;
+	}
+}
+
+#product-card {
+	transform: scale(1);
+	transition: 200ms ease;
+	&:active {
+		transform: scale(0.9);
 	}
 }

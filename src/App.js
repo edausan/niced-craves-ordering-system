@@ -1,20 +1,32 @@
 import { Menu } from "./components/Menu/index"
 import { Header } from "./components/Header/index"
-import BestSeller from "./components/Menu/best.seller"
-import { useState, createContext, useEffect } from "react"
+import Products from "./components/Menu/products"
+import { useState, createContext, useEffect, useContext } from "react"
 import { Modal } from "@mui/material"
 import CartModal from "./components/Cart"
 import Notification from "./components/Menu/notification"
+import { MainCtx } from "./index"
+import { GetData } from "./components/firestore"
 
 export const AppCtx = createContext({})
 
 function App() {
+	const { db } = useContext(MainCtx)
 	const [cart, setCart] = useState([])
 	const [isCartOpen, setIsCartOpen] = useState(false)
 	const [showNotif, setShowNotif] = useState(false)
 	const [isCartUpdated, setIsCartUpdated] = useState(false)
 
+	const { best_sellers: best_rice, products: rice } = GetData({ colRef: "rice_meals", db })
+	const { best_sellers: best_pika, products: pika } = GetData({ colRef: "pika-pika", db })
+	const { best_sellers: best_coffee, products: coffee } = GetData({ colRef: "coffee_blends", db })
+
+	// useEffect(() => {
+	// 	console.log({ best_sellers })
+	// }, [best_sellers])
+
 	useEffect(() => {
+		console.log({ cart })
 		cart.length > 0 && isCartUpdated && handleUpdateCart()
 	}, [cart])
 
@@ -24,15 +36,6 @@ function App() {
 
 	const handleUpdateCart = () => {
 		const latestItem = cart[cart.length - 1]
-		const isExist = cart.findIndex(item => {
-			console.log({ latestItem, item })
-			return (
-				item.id === latestItem.id &&
-				item.flavor === latestItem.flavor &&
-				item.price === latestItem.price &&
-				item.name === latestItem.name
-			)
-		})
 
 		const filtered = cart.filter(item => item.id !== latestItem.id)
 		const duplicates = cart.filter(item => item.id === latestItem.id)
@@ -42,7 +45,6 @@ function App() {
 			total_quantity = total_quantity + item.quantity
 		})
 
-		console.log({ filtered, duplicates })
 		setCart([...filtered, { ...duplicates[0], quantity: total_quantity }])
 		setIsCartUpdated(false)
 	}
@@ -66,7 +68,11 @@ function App() {
 				<Header />
 				{/* <Menu /> */}
 				<section>
-					<BestSeller />
+					<Products title="Best Sellers" products={[...best_rice, ...best_pika, ...best_coffee]} />
+					<Products
+						title="All Products"
+						products={[...best_rice, ...rice, ...pika, ...best_pika, ...coffee, ...best_coffee]}
+					/>
 				</section>
 			</AppCtx.Provider>
 		</div>

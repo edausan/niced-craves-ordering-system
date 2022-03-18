@@ -5,9 +5,9 @@ import ProductCard from "./product.card"
 import { AppCtx } from "../../App"
 import ProductModal from "./product.modal"
 
-const BestSeller = () => {
+const Products = ({ title, products = [] }) => {
 	const [isOpen, setIsOpen] = useState({ product: null, status: false })
-	const { setCart } = useContext(AppCtx)
+	const { setCart, data = [] } = useContext(AppCtx)
 
 	useEffect(() => {
 		console.log({ isOpen })
@@ -20,7 +20,7 @@ const BestSeller = () => {
 				<Grid item xs={12} sx={{ padding: "0 1rem" }}>
 					<Grid container>
 						<Grid item xs={10}>
-							<h3 style={{ margin: 0 }}>Best Seller</h3>
+							<h3 style={{ margin: 0 }}>{title}</h3>
 						</Grid>
 						<Grid item xs={2}>
 							<small>Show all</small>
@@ -40,16 +40,16 @@ const BestSeller = () => {
 							paddingRight: "20px"
 						}}
 					>
-						{menu.map(m => {
+						{products?.map(m => {
 							return (
 								<Grid
 									key={m.id}
 									item
 									xs={6}
 									sx={{ ml: 2 }}
-									onClick={() => setIsOpen({ status: !isOpen.status, product: m })}
+									// onClick={() => setIsOpen({ status: !isOpen.status, product: m })}
 								>
-									<ProductCard product={m} />
+									<ProductCard product={m} setIsOpen={setIsOpen} />
 								</Grid>
 							)
 						})}
@@ -60,4 +60,4 @@ const BestSeller = () => {
 	)
 }
 
-export default BestSeller
+export default Products

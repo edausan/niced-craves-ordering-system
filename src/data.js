@@ -6,6 +6,8 @@ import mojos from "./images/mojos.JPG"
 import cheesestick from "./images/cheesestick.JPG"
 import CheesyBacon from "./images/CheesyBacon.JPG"
 
+console.log({ ClubHouse })
+
 const uid = () => {
 	return Math.random()
 }
