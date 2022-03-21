@@ -16,7 +16,7 @@ import { Add, Close, Delete, Remove, ShoppingCart, ShoppingCartOutlined } from "
 import { AppCtx } from "./../../App"
 
 const CartModal = () => {
-	const { cart, isCartOpen, setIsCartOpen, setCart, setIsCartUpdated } = useContext(AppCtx)
+	const { cart, isCartOpen, setIsCartOpen, setCart, setIsCartUpdated, handleCheckout } = useContext(AppCtx)
 	const [quantity, setQuantity] = useState({ item: "", value: 1 })
 	const [deleted, setDeleted] = useState({ item: null, status: false })
 	const [total, setTotal] = useState(0)
@@ -266,7 +266,7 @@ const CartModal = () => {
 							Total:
 						</Grid> */}
 						<Grid item xs={12}>
-							<Button fullWidth variant="contained" color="warning" sx={{ mt: 1 }}>
+							<Button fullWidth variant="contained" color="warning" sx={{ mt: 1 }} onClick={handleCheckout}>
 								₱{total} | Checkout
 							</Button>
 						</Grid>

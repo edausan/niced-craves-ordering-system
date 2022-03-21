@@ -22,12 +22,7 @@ function App() {
 	const { best_sellers: best_coffee, products: coffee } = GetData({ colRef: "coffee_blends", db })
 	const { best_sellers: best_milktea, products: milktea } = GetData({ colRef: "milktea", db })
 
-	// useEffect(() => {
-	// 	console.log({ best_sellers })
-	// }, [best_sellers])
-
 	useEffect(() => {
-		console.log({ cart })
 		cart.length > 0 && setShowNotif(true)
 		cart.length > 0 && isCartUpdated && handleUpdateCart()
 	}, [cart])
@@ -61,6 +56,10 @@ function App() {
 		}
 	}, [showNotif])
 
+	const handleCheckout = () => {
+		console.log({ cart })
+	}
+
 	return (
 		<div className="App">
 			<AppCtx.Provider
@@ -71,7 +70,8 @@ function App() {
 					setIsCartOpen,
 					setShowNotif,
 					setIsCartUpdated,
-					products: [...best_rice, ...best_pika, ...best_coffee, ...best_milktea]
+					products: [...best_rice, ...best_pika, ...best_coffee, ...best_milktea],
+					handleCheckout
 				}}
 			>
 				<Notification item={cart[cart.length - 1]} showNotif={showNotif} />

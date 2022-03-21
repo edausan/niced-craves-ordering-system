@@ -7,6 +7,9 @@ import reportWebVitals from "./reportWebVitals"
 import { initializeApp } from "firebase/app"
 import { getFirestore } from "firebase/firestore"
 
+import { BrowserRouter as Router, Route, Link, Switch, Routes } from "react-router-dom"
+import Admin from "./Admin"
+
 const firebaseConfig = {
 	apiKey: "AIzaSyD5D_95e3pq02ZPhcpYrSKR635tuSsSW3w",
 	authDomain: "niced-craves-ordering-system.firebaseapp.com",
@@ -25,7 +28,12 @@ export const MainCtx = createContext()
 ReactDOM.render(
 	<React.StrictMode>
 		<MainCtx.Provider value={{ db }}>
-			<App />
+			<Router>
+				<Routes>
+					<Route path="/" element={<App />} />
+					<Route path="/admin" element={<Admin />} />
+				</Routes>
+			</Router>
 		</MainCtx.Provider>
 	</React.StrictMode>,
 	document.getElementById("root")
@@ -34,4 +42,4 @@ ReactDOM.render(
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals()
+// reportWebVitals()
