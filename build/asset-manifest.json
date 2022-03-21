@@ -1,21 +1,15 @@
 {
   "files": {
-    "main.css": "/static/css/main.aec06f64.css",
-    "main.js": "/static/js/main.9de1ebbb.js",
-    "static/media/mojos.JPG": "/static/media/mojos.f3f870ca739c9d4607a5.JPG",
-    "static/media/Milktea.png": "/static/media/Milktea.be99c8c37a39e84354a7.png",
-    "static/media/onion_rings.JPG": "/static/media/onion_rings.9a6d5d2045aa768d1ebc.JPG",
-    "static/media/corndog.JPG": "/static/media/corndog.94f92fc5114edfa0f11d.JPG",
-    "static/media/cheesestick.JPG": "/static/media/cheesestick.6b04f8ed1d42b4cd2f9d.JPG",
-    "static/media/CheesyBacon.JPG": "/static/media/CheesyBacon.ef33e407c9e18fb0b0f2.JPG",
+    "main.css": "/static/css/main.a93c55f5.css",
+    "main.js": "/static/js/main.cdfa93a2.js",
     "static/media/nc_logo.png": "/static/media/nc_logo.7622c202f29b29c2cccd.png",
-    "static/media/clubhouse.jpg": "/static/media/clubhouse.a8c5134847766b57802e.jpg",
+    "static/media/gcash.png": "/static/media/gcash.9473505ed9e89226cdaa.png",
     "index.html": "/index.html",
-    "main.aec06f64.css.map": "/static/css/main.aec06f64.css.map",
-    "main.9de1ebbb.js.map": "/static/js/main.9de1ebbb.js.map"
+    "main.a93c55f5.css.map": "/static/css/main.a93c55f5.css.map",
+    "main.cdfa93a2.js.map": "/static/js/main.cdfa93a2.js.map"
   },
   "entrypoints": [
-    "static/css/main.aec06f64.css",
-    "static/js/main.9de1ebbb.js"
+    "static/css/main.a93c55f5.css",
+    "static/js/main.cdfa93a2.js"
   ]
 }

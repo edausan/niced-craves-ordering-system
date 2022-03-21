@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Menu } from './components/Menu/index';
 import { Header } from './components/Header/index';
 import Products from './components/Menu/products';
@@ -6,16 +7,13 @@ import { Modal } from '@mui/material';
 import CartModal from './components/Cart';
 import Notification from './components/Menu/notification';
 import { MainCtx } from './index';
-import { Checkout, GetData } from './components/firestore';
+import { Checkout, GetData, GetOrders } from './components/firestore';
+import CustomerInfo from './components/CustomerInfo';
 
 export const AppCtx = createContext({});
 
 function App() {
   const { db } = useContext(MainCtx);
-  const [cart, setCart] = useState([]);
-  const [isCartOpen, setIsCartOpen] = useState(false);
-  const [showNotif, setShowNotif] = useState(false);
-  const [isCartUpdated, setIsCartUpdated] = useState(false);
 
   const { best_sellers: best_rice, products: rice } = GetData({
     colRef: 'rice_meals',
@@ -34,7 +32,25 @@ function App() {
     db,
   });
 
+  const { data } = GetOrders({ db });
+
   const { setData } = Checkout({ db });
+
+  const [cart, setCart] = useState([]);
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const [showNotif, setShowNotif] = useState(false);
+  const [isCartUpdated, setIsCartUpdated] = useState(false);
+  const [customerInfo, setCustomerInfo] = useState({
+    name: null,
+    address: null,
+    phone: null,
+    landmark: null,
+    house_color: null,
+    payment_method: 'COD',
+    delivery: null,
+  });
+  const [infoSaved, setInfoSaved] = useState(false);
+  const [checkedOut, setCheckedout] = useState(false);
 
   useEffect(() => {
     cart.length > 0 && setShowNotif(true);
@@ -71,13 +87,32 @@ function App() {
   }, [showNotif]);
 
   const handleCheckout = () => {
+    setCheckedout(true);
+    let total = 0;
+    cart.forEach((item) => {
+      console.log({ item });
+      const subtotal =
+        item.quantity * item.selected_price +
+        (item.add_on ? 10 : 0) * item.quantity -
+        (item.rice === 'no-rice' ? 5 : 0);
+      total = total + subtotal;
+    });
     // window
     //   .open('https://www.facebook.com/messages/t/niced.craves', '_blank')
     //   .focus();
+    const date = new Date();
     setData({
       cart,
-      userInfo: { name: 'Edmar Dausan', address: 'Bagtas' },
+      customer: customerInfo,
+      date_created: date.toISOString(),
+      total,
+      status: 'Pending',
     });
+
+    setTimeout(() => {
+      setCart([]);
+      setCheckedout(false);
+    }, 1000);
   };
 
   return (
@@ -96,11 +131,20 @@ function App() {
             ...best_coffee,
             ...best_milktea,
           ],
+          orders: data,
+          customerInfo,
           handleCheckout,
+          checkedOut,
         }}
       >
         <Notification item={cart[cart.length - 1]} showNotif={showNotif} />
         <CartModal />
+        <CustomerInfo
+          setCustomerInfo={setCustomerInfo}
+          customerInfo={customerInfo}
+          setInfoSaved={setInfoSaved}
+          infoSaved={infoSaved}
+        />
 
         <Header />
         {/* <Menu /> */}
