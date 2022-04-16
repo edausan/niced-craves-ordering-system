@@ -64,7 +64,10 @@ const BottomNavigation = () => {
         onChange={(e, val) => setValue(val)}
       >
         <BottomNavigationAction
-          sx={{ color: value === 'Home' ? '#ed6c02 !important' : 'inherit' }}
+          sx={{
+            color: value === 'Home' ? '#ed6c02 !important' : 'inherit',
+            pl: 3,
+          }}
           label='Home'
           value='Home'
           icon={
@@ -128,7 +131,10 @@ const BottomNavigation = () => {
           }
         />
         <BottomNavigationAction
-          sx={{ color: value === 'User' ? '#ed6c02 !important' : 'inherit' }}
+          sx={{
+            color: value === 'User' ? '#ed6c02 !important' : 'inherit',
+            pr: 3,
+          }}
           label='User'
           value='User'
           icon={<Person color={value === 'User' ? 'warning' : 'disabled'} />}
