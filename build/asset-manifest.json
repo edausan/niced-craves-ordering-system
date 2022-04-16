@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/static/css/main.19814c32.css",
-    "main.js": "/static/js/main.c7740463.js",
+    "main.js": "/static/js/main.30344c67.js",
     "static/media/nc_logo.png": "/static/media/nc_logo.7622c202f29b29c2cccd.png",
     "static/media/gcash.png": "/static/media/gcash.9473505ed9e89226cdaa.png",
     "static/media/nc_logo.svg": "/static/media/nc_logo.4e990bdb043772ab23c35ec253d5ff6f.svg",
     "index.html": "/index.html",
     "main.19814c32.css.map": "/static/css/main.19814c32.css.map",
-    "main.c7740463.js.map": "/static/js/main.c7740463.js.map"
+    "main.30344c67.js.map": "/static/js/main.30344c67.js.map"
   },
   "entrypoints": [
     "static/css/main.19814c32.css",
-    "static/js/main.c7740463.js"
+    "static/js/main.30344c67.js"
   ]
 }

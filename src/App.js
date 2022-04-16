@@ -144,7 +144,7 @@ function App() {
 
   return (
     <div className='App'>
-      <Offline>
+      {/* <Offline>
         <div
           style={{
             width: '100%',
@@ -156,7 +156,7 @@ function App() {
         >
           <small>You are offline.</small>
         </div>
-      </Offline>
+      </Offline> */}
       <AppCtx.Provider
         value={{
           cart,
