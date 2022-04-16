@@ -34,7 +34,7 @@
 		padding: 20px;
 
 		& > section {
-			height: calc(91% - 85px);
+			height: calc(91% - 110px);
 			overflow-y: auto;
 			overflow-x: hidden;
 		}
@@ -154,5 +154,18 @@
 
 	& > .quantity {
 		color: #999;
+	}
+}
+
+.delivery-fee {
+	padding: 4px 8px;
+	border: 1px solid #eee;
+	border-radius: 5px;
+	margin-bottom: 10px;
+	font-size: 12px;
+
+	& strong {
+		float: right;
+		color: orangered;
 	}
 }

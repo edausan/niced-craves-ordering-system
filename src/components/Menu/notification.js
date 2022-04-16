@@ -1,24 +1,42 @@
-import { AddShoppingCart } from "@mui/icons-material"
-import { Divider, Grid } from "@mui/material"
-import React from "react"
+import { AddShoppingCart, ShoppingCart } from '@mui/icons-material';
+import { Divider, Grid, Snackbar, Button } from '@mui/material';
+import { useContext } from 'react';
+import { AppCtx } from '../../App';
 
 const Notification = ({ item, showNotif }) => {
-	return (
-		<section className={`notification ${showNotif ? "show" : ""}`}>
-			<Grid container alignItems="center">
-				<Grid item xs={2}>
-					<AddShoppingCart color="warning" />
-				</Grid>
-				<Grid item xs={10}>
-					<small style={{ color: "orangered", marginLeft: 10 }}>
-						{item?.name}
-						{item?.flavor ? ` (${item?.flavor})` : ""}
-					</small>{" "}
-					is added to cart.
-				</Grid>
-			</Grid>
-		</section>
-	)
-}
+  const { setShowNotif, setIsCartOpen } = useContext(AppCtx);
 
-export default Notification
+  const action = (
+    <Button
+      onClick={() => {
+        setIsCartOpen(true);
+        setShowNotif(false);
+      }}
+      size='small'
+      sx={{ minWidth: 30 }}
+    >
+      <ShoppingCart color='warning' fontSize='small' />
+    </Button>
+  );
+
+  return (
+    <Snackbar
+      anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      open={showNotif}
+      autoHideDuration={3000}
+      onClose={() => setShowNotif(false)}
+      action={action}
+      message={
+        <div style={{ width: '100%', maxWidth: 300 }}>
+          <strong style={{ color: 'orange' }}>
+            {item?.name}
+            {item?.flavor ? ` (${item?.flavor})` : ''}
+          </strong>{' '}
+          is added to cart.
+        </div>
+      }
+    />
+  );
+};
+
+export default Notification;

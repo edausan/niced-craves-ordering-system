@@ -1,15 +1,17 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Menu } from './components/Menu/index';
 import { Header } from './components/Header/index';
 import Products from './components/Menu/products';
 import { useState, createContext, useEffect, useContext } from 'react';
-import { Modal } from '@mui/material';
 import CartModal from './components/Cart';
 import Notification from './components/Menu/notification';
 import { MainCtx } from './index';
 import { Checkout, GetData, GetOrders } from './components/firestore';
 import CustomerInfo from './components/CustomerInfo';
 import LocalStorage from './components/CustomerInfo/localStorage';
+import { Offline } from 'react-detect-offline';
+import { FirebaseError } from 'firebase/app';
+import BottomNavigation from './components/BottomNavigation';
+import AddtoHomeScreen from './components/AddtoHomeScreen';
 
 export const AppCtx = createContext({});
 
@@ -39,6 +41,7 @@ function App() {
 
   const [cart, setCart] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isProductOpen, setIsProductOpen] = useState(false);
   const [showNotif, setShowNotif] = useState(false);
   const [isCartUpdated, setIsCartUpdated] = useState(false);
   const [customerInfo, setCustomerInfo] = useState({
@@ -52,16 +55,32 @@ function App() {
   });
   const [infoSaved, setInfoSaved] = useState(false);
   const [checkedOut, setCheckedout] = useState(false);
+  const [isOnline, setIsOnline] = useState(true);
 
-  const { customerFromStorage } = LocalStorage({ customerInfo, infoSaved });
+  const { customerFromStorage, products } = LocalStorage({
+    customerInfo,
+    infoSaved,
+  });
+
+  useEffect(() => {
+    console.log({ ERR: FirebaseError });
+  }, [FirebaseError]);
+
+  useEffect(() => {
+    console.log({ network_status: navigator.onLine });
+    setIsOnline(navigator.onLine);
+  }, [navigator]);
 
   useEffect(() => {
     customerFromStorage?.name && setCustomerInfo(customerFromStorage);
-    console.log({ customerFromStorage });
   }, [customerFromStorage]);
 
   useEffect(() => {
-    cart.length > 0 && setShowNotif(true);
+    console.log({ products });
+  }, [products]);
+
+  useEffect(() => {
+    cart.length > 0 && !isCartOpen && setShowNotif(true);
     cart.length > 0 && isCartUpdated && handleUpdateCart();
   }, [cart]);
 
@@ -73,9 +92,9 @@ function App() {
     setIsCartUpdated(true);
     if (showNotif) {
       setIsCartUpdated(false);
-      setTimeout(() => {
-        setShowNotif(false);
-      }, 1000);
+      // setTimeout(() => {
+      //   setShowNotif(false);
+      // }, 1000);
     }
   }, [showNotif]);
 
@@ -98,7 +117,7 @@ function App() {
     setCheckedout(true);
     let total = 0;
     cart.forEach((item) => {
-      console.log({ item });
+      // console.log({ item });
       const subtotal =
         item.quantity * item.selected_price +
         (item.add_on ? 10 : 0) * item.quantity -
@@ -125,6 +144,19 @@ function App() {
 
   return (
     <div className='App'>
+      <Offline>
+        <div
+          style={{
+            width: '100%',
+            background: 'red',
+            color: 'white',
+            textAlign: 'center',
+            zIndex: '1009',
+          }}
+        >
+          <small>You are offline.</small>
+        </div>
+      </Offline>
       <AppCtx.Provider
         value={{
           cart,
@@ -133,18 +165,27 @@ function App() {
           setIsCartOpen,
           setShowNotif,
           setIsCartUpdated,
-          products: [
-            ...best_rice,
-            ...best_pika,
-            ...best_coffee,
-            ...best_milktea,
-          ],
+          products: isOnline
+            ? [...best_rice, ...best_pika, ...best_coffee, ...best_milktea]
+            : [
+                ...products.best_coffee,
+                ...products.best_milktea,
+                ...products.best_pika,
+                ...products.best_rice,
+                ...products.pika,
+                ...products.rice,
+              ],
           orders: data,
           customerInfo,
           handleCheckout,
           checkedOut,
+          setIsProductOpen,
+          isProductOpen,
+          setInfoSaved,
+          infoSaved,
         }}
       >
+        <AddtoHomeScreen />
         <Notification item={cart[cart.length - 1]} showNotif={showNotif} />
         <CartModal />
         <CustomerInfo
@@ -156,36 +197,84 @@ function App() {
 
         <Header />
         {/* <Menu /> */}
-        <section>
+        <section
+          className={
+            isCartOpen || isProductOpen || !infoSaved ? 'blr blur' : 'blr'
+          }
+          style={{
+            paddingBottom: 60,
+            // filter: isCartOpen ? 'blur(4px)' : 'blur(0)',
+          }}
+        >
           <Products
             title='Best Sellers'
-            products={[
-              ...best_rice,
-              ...best_pika,
-              ...best_coffee,
-              ...best_milktea,
-            ]}
+            products={
+              isOnline
+                ? [...best_rice, ...best_pika, ...best_coffee, ...best_milktea]
+                : [
+                    ...products.best_coffee,
+                    ...products.best_milktea,
+                    ...products.best_pika,
+                    ...products.best_rice,
+                  ]
+            }
           />
+
           <Products
             title='All Products'
-            products={[
-              ...pika,
-              ...best_pika,
-              ...best_rice,
-              ...rice,
-              ...coffee,
-              ...best_coffee,
-              ...milktea,
-            ]}
+            products={
+              isOnline
+                ? [
+                    ...pika,
+                    ...best_pika,
+                    ...best_rice,
+                    ...rice,
+                    ...coffee,
+                    ...best_coffee,
+                    ...milktea,
+                  ]
+                : [
+                    ...products.best_coffee,
+                    ...products.best_milktea,
+                    ...products.best_pika,
+                    ...products.best_rice,
+                    ...products.pika,
+                    ...products.rice,
+                  ]
+            }
           />
-          <Products title='Rice Meals' products={[...best_rice, ...rice]} />
-          <Products title='Pika - Pika' products={[...pika, ...best_pika]} />
+          <Products
+            title='Rice Meals'
+            products={
+              isOnline
+                ? [...best_rice, ...rice]
+                : [...products.best_rice, ...products.rice]
+            }
+          />
+          <Products
+            title='Pika - Pika'
+            products={
+              isOnline
+                ? [...pika, ...best_pika]
+                : [...products.pika, ...products.best_pika]
+            }
+          />
           <Products
             title='Coffee Blends'
-            products={[...best_coffee, ...coffee]}
+            products={
+              isOnline ? [...best_coffee, ...coffee] : [...products.best_coffee]
+            }
           />
-          <Products title='Milktea' products={[...best_milktea, ...milktea]} />
+          <Products
+            title='Milktea'
+            products={
+              isOnline
+                ? [...best_milktea, ...milktea]
+                : [...products.best_milktea]
+            }
+          />
         </section>
+        <BottomNavigation />
       </AppCtx.Provider>
     </div>
   );

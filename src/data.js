@@ -1,3 +1,7 @@
 import GCashIcon from './images/gcash.png';
+import Logo from './nc_logo.png';
 
-export const GCASH = GCashIcon;
+const GCASH = GCashIcon;
+const NC_LOGO = Logo;
+
+export { GCASH, NC_LOGO };

@@ -2,6 +2,7 @@ import { useContext } from 'react';
 import { Button, Grid, Box, Select, MenuItem } from '@mui/material';
 import { ShoppingCartOutlined, Close, Remove, Add } from '@mui/icons-material';
 import { CartCtx } from './index';
+import { AppCtx } from './../../App';
 
 const Cart = () => {
   const {
@@ -16,6 +17,8 @@ const Cart = () => {
     total,
   } = useContext(CartCtx);
 
+  const { customerInfo } = useContext(AppCtx);
+
   return (
     <>
       <div style={{ textAlign: 'right', marginBottom: '10px' }}>
@@ -25,6 +28,15 @@ const Cart = () => {
           </Button>
         )}
       </div>
+
+      {cart.length > 0 && (
+        <div className='delivery-fee'>
+          <small>
+            Delivery Fee: {customerInfo.delivery.name}
+            <strong>₱{customerInfo.delivery.price}</strong>
+          </small>
+        </div>
+      )}
 
       <section>
         {cart.length <= 0 && (
@@ -43,6 +55,7 @@ const Cart = () => {
             <strong style={{ color: '#ed6c02' }}>Your cart is empty.</strong>
           </Grid>
         )}
+
         {cart.map((item) => {
           // console.log({ item })
           return (
@@ -255,6 +268,7 @@ const Cart = () => {
               color='warning'
               sx={{ mt: 1 }}
               onClick={handleCheckout}
+              disableElevation
             >
               ₱{total} | Checkout
             </Button>

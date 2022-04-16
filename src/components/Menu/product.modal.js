@@ -109,10 +109,7 @@ const ProductModal = ({ isOpen, setIsOpen, setCart }) => {
           ? itemDetails.add_on
           : null
       }_P:${itemDetails.selected_price}_S:${sauce}`,
-      [column]:
-        column === 'quantity'
-          ? parseInt(event.target.value)
-          : event.target.value,
+      [column]: column === 'quantity' ? parseInt(val) : val,
     });
   };
 
@@ -136,8 +133,9 @@ const ProductModal = ({ isOpen, setIsOpen, setCart }) => {
       });
     }
   };
+
   const handleRice = (e, rice) => {
-    if (sauce !== null) {
+    if (itemDetails.with_rice !== null) {
       setItemDetails({
         ...itemDetails,
         rice,
@@ -305,21 +303,52 @@ const ProductModal = ({ isOpen, setIsOpen, setCart }) => {
                   onChange={(e) => handleChange(e, 'quantity')}
                   value={itemDetails.quantity}
                   defaultValue={1}
+                  inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
+                  onBlur={() =>
+                    setItemDetails({
+                      ...itemDetails,
+                      quantity:
+                        itemDetails.quantity === 0 ? 1 : itemDetails.quantity,
+                    })
+                  }
                 />
               </Box>
             </Grid>
 
             <Grid item xs={12} sx={{ p: 2 }}>
-              <Button
-                onClick={handleAddToCart}
-                variant='contained'
-                color='warning'
-                fullWidth
-                startIcon={<ShoppingCart />}
-                disabled={!is_available}
-              >
-                {is_available ? 'Add to cart' : 'Not Available'}
-              </Button>
+              <Grid container>
+                <Grid
+                  item
+                  xs={4}
+                  md={4}
+                  alignItems='center'
+                  justifyContent='center'
+                  display='flex'
+                >
+                  <strong style={{ fontSize: 24 }}>
+                    ₱{' '}
+                    {(isNaN(itemDetails.quantity) ? 1 : itemDetails.quantity) *
+                      selected_price -
+                      (itemDetails.rice === 'no-rice'
+                        ? 5 * itemDetails.quantity
+                        : 0)}
+                  </strong>
+                </Grid>
+
+                <Grid item xs={8} md={8}>
+                  <Button
+                    onClick={handleAddToCart}
+                    variant='contained'
+                    color='warning'
+                    fullWidth
+                    startIcon={<ShoppingCart />}
+                    disabled={!is_available}
+                    disableElevation
+                  >
+                    {is_available ? 'Add to cart' : 'Not Available'}
+                  </Button>
+                </Grid>
+              </Grid>
             </Grid>
           </Grid>
         </section>
