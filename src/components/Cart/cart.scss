@@ -34,7 +34,7 @@
 		padding: 20px;
 
 		& > section {
-			height: calc(91% - 110px);
+			height: calc(91% - 130px);
 			overflow-y: auto;
 			overflow-x: hidden;
 		}
@@ -158,11 +158,11 @@
 }
 
 .delivery-fee {
-	padding: 4px 8px;
+	padding: 16px;
 	border: 1px solid #eee;
 	border-radius: 5px;
 	margin-bottom: 10px;
-	font-size: 12px;
+	// font-size: 12px;
 
 	& strong {
 		float: right;

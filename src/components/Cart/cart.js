@@ -209,7 +209,7 @@ const Cart = () => {
                             <input
                               type='number'
                               className='quantity-input'
-                              defaultValue={
+                              value={
                                 item.id === quantity.id
                                   ? quantity.value
                                   : item.quantity
