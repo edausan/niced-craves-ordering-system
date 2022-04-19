@@ -188,10 +188,10 @@ function App() {
         </div>
       </Offline> */}
 			<AppCtx.Provider value={value}>
-				<SwipeableViews index={index}>
+				<Notification item={cart[cart.length - 1]} showNotif={showNotif} />
+				<AddtoHomeScreen />
+				<SwipeableViews index={index} disabled>
 					<section style={{overflowY: "auto", maxHeight: "100vh"}}>
-						<AddtoHomeScreen />
-						<Notification item={cart[cart.length - 1]} showNotif={showNotif} />
 						<CartModal />
 						<CustomerInfo
 							setCustomerInfo={setCustomerInfo}
