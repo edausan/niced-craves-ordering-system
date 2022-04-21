@@ -25,17 +25,20 @@
 	padding: 0.1rem 0.2rem;
 	background-color: red;
 	color: white;
-	font-size: 8px;
+	font-size: 12px;
 	float: right;
 	text-align: center;
 
 	&.row {
 		padding: 0.2rem 0.3rem;
-		font-size: 12px;
 		display: block;
 		float: none;
 		width: 70px;
 		margin-left: auto;
+	}
+
+	&.small {
+		font-size: 8px !important;
 	}
 }
 

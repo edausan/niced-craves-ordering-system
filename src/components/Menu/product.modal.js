@@ -12,7 +12,8 @@ import {
 	FormControl,
 	InputLabel,
 	ToggleButtonGroup,
-	ToggleButton
+	ToggleButton,
+	Rating
 } from "@mui/material"
 import {ShoppingCart, CurrencyRuble, Star} from "@mui/icons-material"
 import Notification from "./notification"
@@ -146,7 +147,10 @@ const ProductModal = ({isOpen, setIsOpen, setCart}) => {
 						</Grid>
 						<Grid item xs={12} sx={{p: 2, pt: 1}}>
 							<Typography variant="h5" sx={{mb: 2}}>
-								{is_best_seller && <span className="best-seller row">Best Seller</span>}
+								<div>
+									<Rating name="read-only" value={4.5} readOnly size="small" precision={0.5} />
+									{is_best_seller && <span className="best-seller">Best Seller</span>}
+								</div>
 								<strong>{name}</strong>
 							</Typography>
 
@@ -249,7 +253,7 @@ const ProductModal = ({isOpen, setIsOpen, setCart}) => {
 											>
 												{flavors?.map(flavor => {
 													return (
-														<MenuItem key={flavor.id} value={flavor.name}>
+														<MenuItem key={flavor.id} value={flavor.name} disabled={!flavor.is_available}>
 															{flavor.name}
 														</MenuItem>
 													)

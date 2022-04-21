@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/static/css/main.da068514.css",
-    "main.js": "/static/js/main.f09515a4.js",
+    "main.css": "/static/css/main.c2d0ef3f.css",
+    "main.js": "/static/js/main.5875838a.js",
     "static/media/summer_logo.png": "/static/media/summer_logo.cbfa5151947bdd25192a.png",
     "static/media/nc_logo.png": "/static/media/nc_logo.7622c202f29b29c2cccd.png",
     "static/media/white_logo.png": "/static/media/white_logo.4caad5c783e18216d877.png",
     "static/media/gcash.png": "/static/media/gcash.9473505ed9e89226cdaa.png",
     "static/media/nc_logo.svg": "/static/media/nc_logo.c29afbc889cbb356ba507f50657572eb.svg",
     "index.html": "/index.html",
-    "main.da068514.css.map": "/static/css/main.da068514.css.map",
-    "main.f09515a4.js.map": "/static/js/main.f09515a4.js.map"
+    "main.c2d0ef3f.css.map": "/static/css/main.c2d0ef3f.css.map",
+    "main.5875838a.js.map": "/static/js/main.5875838a.js.map"
   },
   "entrypoints": [
-    "static/css/main.da068514.css",
-    "static/js/main.f09515a4.js"
+    "static/css/main.c2d0ef3f.css",
+    "static/js/main.5875838a.js"
   ]
 }

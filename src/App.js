@@ -36,6 +36,10 @@ function App() {
 		colRef: "milktea",
 		db
 	})
+	const {best_sellers: best_lemonades, products: lemonades} = GetData({
+		colRef: "lemonades",
+		db
+	})
 
 	const {data} = GetOrders({db})
 
@@ -118,7 +122,6 @@ function App() {
 		setCheckedout(true)
 		let total = 0
 		cart.forEach(item => {
-			// console.log({ item });
 			const subtotal =
 				item.quantity * item.selected_price + (item.add_on ? 10 : 0) * item.quantity - (item.rice === "no-rice" ? 5 : 0)
 			total = total + subtotal
@@ -127,13 +130,18 @@ function App() {
 		//   .open('https://www.facebook.com/messages/t/niced.craves', '_blank')
 		//   .focus();
 		const date = new Date()
-		setData({
+
+		const data = {
 			cart,
 			customer: customerInfo,
 			date_created: date.toISOString(),
 			total,
 			status: "Pending"
-		})
+		}
+
+		console.log({data})
+
+		setData(data)
 
 		setTimeout(() => {
 			setCart([])
@@ -247,6 +255,10 @@ function App() {
 							<Products
 								title="Milktea"
 								products={isOnline ? [...best_milktea, ...milktea] : [...products.best_milktea]}
+							/>
+							<Products
+								title="Lemonades"
+								products={isOnline ? [...best_lemonades, ...lemonades] : [...products.best_lemonades]}
 							/>
 						</section>
 					</section>
