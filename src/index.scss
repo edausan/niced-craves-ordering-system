@@ -1,8 +1,9 @@
-@import url("./components/Header/header.scss");
-@import url("./components/Swipeable/swipeable.scss");
-@import url("./components/Cart/cart.scss");
-@import url("./components/Menu/menu.scss");
-@import url("./components/CustomerInfo/customer.scss");
+@import "./components/Header/header.scss";
+@import "./components/Swipeable/swipeable.scss";
+@import "./components/Cart/cart.scss";
+@import "./components/Menu/menu.scss";
+@import "./components/CustomerInfo/customer.scss";
+@import "./components/Map/map.scss";
 
 body {
 	padding: 0;

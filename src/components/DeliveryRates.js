@@ -1,8 +1,12 @@
 import React from 'react';
-import { Wrapper, Status } from '@googlemaps/react-wrapper';
+import GoogleMaps from './Map';
 
 const DeliveryRates = () => {
-  return <div>DeliveryRates</div>;
+  return (
+    <div>
+      <GoogleMaps />
+    </div>
+  );
 };
 
 export default DeliveryRates;
